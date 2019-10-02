@@ -17,10 +17,12 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.get('/', authenticated, (req, res) => {
-  const client = twitterClient(req.token, req.tokenSecret)
-  client.get('status/user_timeline', (error, tweets, response) => {
-    console.log(tweets)
-  })
+  const { username, token, tokenSecret } = req.user
+  twitterClient(token, tokenSecret)
+    .get('statuses/user_timeline')
+    .then(results => {
+      console.log(results)
+    })
   res.render('index')
 })
 
