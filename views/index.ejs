@@ -9,6 +9,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
     />
+    <style>
+      body {
+        color: #fff;
+        background: #08123d;
+      }
+    </style>
   </head>
   <body>
     <div class="ui centered grid">
@@ -16,6 +22,22 @@
         <div style="margin-bottom: 1em">
           <h1 style="margin: 0">My Tweets</h1>
           <p>(You are currently logged-in as <strong><%=username%>)</strong></p>
+        </div>
+        <div>
+          <form method="POST" action="/">
+            <div class="ui form">
+              <div class="field">
+                <label style="color: #fff">Post New Status</label>
+                <textarea name="status" rows="2"></textarea>
+                <button
+                  style="margin: 1em 0"
+                  class="ui right floated inverted primary button"
+                >
+                  Post
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
         <% tweets.forEach(tweet => { %>
         <div style="margin-bottom: 1em" class="row">
@@ -31,7 +53,7 @@
               </div>
               <div class="extra content">
                 <div class="right floated author">
-                  <img class="ui avatar image" src="<%=tweet.profile_image%>" />
+                  <!-- <img class="ui avatar image" src="<%=tweet.profile_image%>" /> -->
                   <%=tweet.name%> @ <%=tweet.username%>
                 </div>
               </div>
@@ -40,8 +62,6 @@
         </div>
         <% }) %>
       </div>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
   </body>
 </html>

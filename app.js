@@ -25,11 +25,23 @@ app.get('/', authenticated, (req, res) => {
         name: tweet.user.name,
         username: tweet.user.screen_name,
         text: tweet.text,
-        date: tweet.created_at,
-        profile_image: tweet.user.profile_image_url
+        date: tweet.created_at
       }))
-      console.log(tweets)
+
       res.render('index', { username, tweets })
+    }
+  )
+})
+
+app.post('/', (req, res) => {
+  const { token, tokenSecret } = req.user
+  const { status } = req.body
+  twitterClient(token, tokenSecret).post(
+    '/statuses/update',
+    { status },
+    (err, tweet) => {
+      console.log(tweet)
+      res.redirect('/')
     }
   )
 })
