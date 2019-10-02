@@ -11,6 +11,37 @@
     />
   </head>
   <body>
+    <div class="ui centered grid">
+      <div style="padding-top: 2em">
+        <div style="margin-bottom: 1em">
+          <h1 style="margin: 0">My Tweets</h1>
+          <p>(You are currently logged-in as <strong><%=username%>)</strong></p>
+        </div>
+        <% tweets.forEach(tweet => { %>
+        <div style="margin-bottom: 1em" class="row">
+          <div class="column">
+            <a class="ui card">
+              <div class="left aligned content">
+                <div class="meta">
+                  <span class="category"><%=tweet.date%></span>
+                </div>
+                <div class="description">
+                  <p><%=tweet.text%></p>
+                </div>
+              </div>
+              <div class="extra content">
+                <div class="right floated author">
+                  <img class="ui avatar image" src="<%=tweet.profile_image%>" />
+                  <%=tweet.name%> @ <%=tweet.username%>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
   </body>
 </html>

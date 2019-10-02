@@ -18,12 +18,20 @@ app.use(passport.session())
 
 app.get('/', authenticated, (req, res) => {
   const { username, token, tokenSecret } = req.user
-  twitterClient(token, tokenSecret)
-    .get('statuses/user_timeline')
-    .then(results => {
-      console.log(results)
-    })
-  res.render('index')
+  twitterClient(token, tokenSecret).get(
+    `/statuses/user_timeline.json?screen_name=${username}&count=20`,
+    (err, tweetsObj) => {
+      const tweets = tweetsObj.map(tweet => ({
+        name: tweet.user.name,
+        username: tweet.user.screen_name,
+        text: tweet.text,
+        date: tweet.created_at,
+        profile_image: tweet.user.profile_image_url
+      }))
+      console.log(tweets)
+      res.render('index', { username, tweets })
+    }
+  )
 })
 
 app.get('/login', (req, res) => res.render('login'))
